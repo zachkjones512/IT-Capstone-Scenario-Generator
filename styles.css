@@ -12,9 +12,23 @@ html, body{
 
 h1{
     color:whitesmoke;
-    font-weight: 500;
+    font-weight: 300;
     text-align: center;
-    margin-top: 15%;
+    margin-top: 5%;
+    text-wrap: pretty;
+    line-height: 5vh;
+}
+
+h2{
+    position: absolute;
+    top: 35%;
+    color:rgb(255, 255, 255);
+    font-weight:lighter;
+    font-family:system-ui;
+    width:100%;
+    text-align: center;
+    left:0;
+    font-size: 2em;
 }
 
 #entry{
@@ -33,7 +47,7 @@ h1{
     color:rgb(214, 214, 214);
     outline: transparent;
     font-size: 2em;
-    padding-left:5%;
+    padding-left:6%;
     font-weight:300;
 }
 
@@ -43,10 +57,6 @@ h1{
     cursor: pointer;
 }
 
-#input::placeholder{
-    color: white;
-    opacity: 100%;
-}
 
 .blinkcaret{
     position: absolute;
@@ -54,7 +64,7 @@ h1{
     height: 35px; 
     background-color: white; 
     animation: 1.5s blink 1s infinite;
-    left: 6%; 
+    left: 5.5%; 
     top: 25%;
 }
 
@@ -70,4 +80,25 @@ h1{
     50% {
         opacity: 0;
     }
+}
+
+.submit{
+    align-content: center;
+    width: 100%;
+}
+
+#btn{
+    align-self: center;
+    width:50%;
+    height:15%;
+    margin-left:25%;
+    margin-top: 3%;
+    border-radius: 20px;
+    background-color: #e7e7e7;
+    border-color: transparent;
+    outline-color: transparent;
+    font-size:2em;
+    font-weight: 450;
+    font-family:'Segoe UI';
+    color:rgb(0, 0, 0)
 }
