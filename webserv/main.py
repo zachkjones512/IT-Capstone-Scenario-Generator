@@ -13,8 +13,8 @@ def submission():
 
 @app.route('/complete', methods=['GET']) #user completes the questionnaire
 def complete():
-    title_slide_layout = prs.slide_layouts[0]
-    slide = prs.slides.add_slide(title_slide_layout)
+    title_slide_layout = pres.slide_layouts[0]
+    slide = pres.slides.add_slide(title_slide_layout)
     title = slide.shapes.title
     subtitle = slide.placeholders[1] #creates presentation with default layout
 
