@@ -19,26 +19,36 @@ h1{
     line-height: 5vh;
 }
 
+
 h2{
-    position: absolute;
-    top: 35%;
+    overflow:hidden;
+    white-space: nowrap;
+    letter-spacing: .05em;
+    animation: typing 1.2s steps(21, end);
+    position: flexbox;
+    padding-top:40%;
     color:rgb(255, 255, 255);
     font-weight:lighter;
     font-family:system-ui;
     width:100%;
     text-align: center;
     left:0;
-    font-size: 2em;
+    font-size: 1.5em;
 }
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
 
 #entry{
     position: relative;
-    margin-top: 50%;
+    margin-top: 5%;
 }
 
 #input{
-    width: 50vh;
-    height: 5vh;
+    width: 50rem;
+    height: 3rem;
     text-align: left;
     border-radius: 20px;
     border: 3px solid transparent;
@@ -56,7 +66,6 @@ h2{
     position: absolute;
     left:2%;
     color:rgb(0, 190, 0);
-    animation: blink 1s infinite steps(1);
 }
 
 #input:hover{
@@ -69,11 +78,11 @@ h2{
 .blinkcaret{
     position: absolute;
     width: 2px; 
-    height: 35px; 
+    height: 2.5rem; 
     background-color: rgb(0, 190, 0); 
     animation: blink 1s infinite steps(1);
-    left: 6%; 
-    top: 25%;
+    left: 3rem; 
+    top: .65rem;
 }
 
 #input:focus +.blinkcaret {
@@ -97,8 +106,8 @@ h2{
 
 #btn{
     width:50%;
-    height:15%;
-    margin-top: 3%;
+    height:35%;
+    margin-top: 1rem;
     margin-left: 55%;
     border-radius: 20px;
     background-color: #00853e28;
@@ -115,4 +124,11 @@ h2{
 #btn:hover{
     background-color: #00853e5e;
     cursor:pointer;
+}
+
+footer{
+    position: absolute;
+    color: red;
+    bottom: 10rem;
+    font-size:1.5em;
 }
