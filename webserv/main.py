@@ -11,7 +11,7 @@ def submission():
     usrStr = request.args.get(input, default="DEFAULT", type=str) #submission button sends post request with answer
     inputs.append(usrStr)
 
-@app.route('/complete' methods=['GET']) #user completes the questionnaire
+@app.route('/complete', methods=['GET']) #user completes the questionnaire
 def complete():
     title_slide_layout = prs.slide_layouts[0]
     slide = prs.slides.add_slide(title_slide_layout)
