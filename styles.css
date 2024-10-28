@@ -129,6 +129,15 @@ h2{
 footer{
     position: absolute;
     color: red;
-    bottom: 10rem;
+    bottom: 30rem;
     font-size:1.5em;
+}
+
+#repologo{
+    position:fixed;
+    align-self: center;
+    left:48%;
+    bottom: 1rem;
+    width:5rem;
+    height:5rem;
 }
