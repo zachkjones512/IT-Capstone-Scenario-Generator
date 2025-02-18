@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
+    <script src="index.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scenario Generator</title>
 </head>
@@ -16,12 +17,12 @@
     </div>
 
     <div id="question">
-        <h2>First, type in a name</h2>
+        <h2>First, type in a full name, first and last</h2>
     </div>
 
-        <form>
+        <form id="questionnaire" action="http://localhost:8080/submission" method="POST">
             <div id="entry">
-                <input id="input" placeholder=">">
+                <input id="input" name="input" placeholder=">">
                 <span class="blinkcaret"></span>
             </div>
         <div class="submit"></div>
