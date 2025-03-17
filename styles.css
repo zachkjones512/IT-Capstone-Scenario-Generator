@@ -4,8 +4,8 @@ html, body{
     width: 100%;
     margin: 0;
     display: flex;
-    justify-content: flex-start;
     flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
     font-family:monospace;
 }
@@ -20,34 +20,39 @@ h1{
 }
 
 
-h2{
-    overflow:hidden;
+#question{
+    overflow: hidden;
     white-space: nowrap;
     letter-spacing: .05em;
-    animation: typing 1.2s steps(21, end);
-    position: flexbox;
-    padding-top:40%;
+    padding-top:20%;
     color:rgb(255, 255, 255);
     font-weight:lighter;
     font-family:system-ui;
-    width:100%;
-    text-align: center;
-    left:0;
+    align-content: center;
     font-size: 1.5em;
+    position: relative; 
+    text-align: center;
+    width: 100%;
+    animation: typing 1.5s steps(50, end); 
 }
 
 h3{
-    margin-top: 10rem;
+    margin-top: 100%;
 }
 
 @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
+    0% {
+        clip-path: inset(0 100% 0 0);
+    }
+    100% {
+        clip-path: inset(0 0 0 0);
+    }
   }
 
 #entry{
+    display: flex;
     position: relative;
-    margin-top: 5%;
+    margin-top: 20%;
 }
 
 #input{
@@ -62,8 +67,8 @@ h3{
     outline: transparent;
     font-family: monospace;
     font-size: 2em;
-    padding-left:6%;
     font-weight:300;
+    padding-left:5%;
 }
 
 #input::placeholder{
@@ -81,12 +86,12 @@ h3{
 
 .blinkcaret{
     position: absolute;
-    width: 2px; 
+    width: .1%; 
     height: 2.5rem; 
+    top: 15%;
     background-color: rgb(0, 190, 0); 
-    animation: blink 1s infinite steps(1);
-    left: 3rem; 
-    top: .65rem;
+    animation: blink 1s infinite steps(1); 
+    left: 5.4%;
 }
 
 #input:focus +.blinkcaret {
@@ -103,16 +108,11 @@ h3{
     }
 }
 
-.submit{
-    align-content: right;
-    width: 100%;
-}
+
 
 #btn{
-    width:50%;
-    height:35%;
-    margin-top: 1rem;
-    margin-left: 55%;
+    width:25%;
+    margin-left: 3%;
     border-radius: 20px;
     background-color: #00853e28;
     border: 3px solid;

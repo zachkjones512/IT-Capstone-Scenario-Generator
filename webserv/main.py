@@ -1,3 +1,11 @@
+'''
+Disk File:
+a. Password protected
+b. 5 files, find password next to {USER INPUT} word
+c. Caesar cipher using {USER INPUT} shift left
+e. Riddle random number generator between 3, gives hint for password in file
+d. Steganography (USE PYTHON LIBRARY)
+'''
 from flask import Flask, request, send_file #using flask for webserver
 from pptx import Presentation
 import pyzipper, os
@@ -11,8 +19,9 @@ directoryName = "scenario.zip"
 
 @app.route('/submission', methods=['POST']) #user clicks submit on any of the questions
 def submission():
-    usrStr = request.form.get('input', default="DEFAULT", type=str) #submission button sends post request with answer
-    inputs.append(usrStr)
+    global inputs
+    usrStr = request.get_json() #submission button sends post request with answers json file
+    inputs = usrStr.get('responses', [])
     return "Input received, " + inputs[0]
 
 @app.route('/complete', methods=['GET']) #user completes the questionnaire
@@ -41,7 +50,7 @@ def complete():
         zipf.write("test.txt")
         print("Password set")
 
-    with pyzipper.ZipFile(directoryName, 'w', compression=pyzipper.ZIP_LZMA) as zipf:
+    with pyzipper.ZipFile(directoryName, 'w') as zipf:
         zipf.write("archive.zip")
         zipf.write(presName)
         os.remove("test.txt")
@@ -59,4 +68,4 @@ def complete():
 
 
 if __name__ == '__main__':
-    app.run(port=8080) #listens on port 8080
+    app.run(port=5500) #listens on port 5500
