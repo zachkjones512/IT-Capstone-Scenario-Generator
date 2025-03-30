@@ -1,9 +1,11 @@
 
+/*NEEDS INPUT VALIDATION ON FORM */
 document.addEventListener("DOMContentLoaded", () => {
     
     const questions = [
-        "First, type in a full name, first and last",
-        "Enter in a noun",
+        "First, what is your name?",
+        "Now, type in another full name, first and last",
+        "Excellent choice! This time, enter in a noun",
         "Enter in a single one digit number",
         "Enter in a color",
         "Enter the name of a city",
