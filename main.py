@@ -37,9 +37,7 @@ def create_directory(inputslist):
 
     with pyzipper.AESZipFile("level5.zip", 'w', compression=pyzipper.ZIP_LZMA, encryption=pyzipper.WZ_AES) as zipf: #FINISH
         zipf.setpassword(base64.b64decode(pw[3]).decode("utf-8").encode("utf-8"))
-        with open("SENSITIVEINFO.txt", 'w') as file:
-            file.write("DO NOT SHARE *** CONFIDENTIAL\nBelow are a list of passwords used by the company:\nYOU\nWIN!")
-        zipf.write("SENSITIVEINFO.txt")
+        zipf.write("certificate.txt")
         print("Password set")
 
 
@@ -96,7 +94,6 @@ def create_directory(inputslist):
         "password.txt",
         "password2.txt",
         "password4.txt",
-        "SENSITIVEINFO.txt",
         "password.old",
         "password.new",
         "MonaLisa.jpg",
