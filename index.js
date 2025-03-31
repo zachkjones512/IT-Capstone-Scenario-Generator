@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateQuestion(){
         if (questionIndex < questions.length) {
             currQuestion.textContent = questions[questionIndex];
-            currInput.value = "";
+            currInput.value = ""
+            currInput.focus()
         }
         else {
             postResponse();
@@ -40,35 +41,71 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     //need to add a condition that confirms an input was made.
-    function postResponse(){
-        fetch("/submission", { //sends responses
+    async function postResponse(){
+
+        event.preventDefault();
+        nextBtn.disabled = true    //disable form
+        currInput.disabled = true;
+        currQuestion.textContent = "Generating your challenge..."
+
+        try {
+        const poster = await fetch("/submission", { //sends responses
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ responses }) 
         })
-        fetch('/complete', { //downloads responses
-            method: 'GET',
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.blob(); //gets file as blob
-            } else {
-                throw new Error('File download failed');
-            }
-        })
-        .then(blob => {
-            const link = document.createElement('a'); //creates an anchor element that will have the download link
-            const url = URL.createObjectURL(blob); //creates a file url for the blob
-            link.href = url;
-            link.download = 'CybersecurityScenario.zip'; //filename
-            
-            document.body.appendChild(link); //puts the anchor element with the file url in the body
-            link.click(); //click on link
+    
+        if (!poster.ok){
+            throw new Error ("Server couldn't process your responses")
+        }
 
-            document.body.removeChild(link); //remove link and url
-            URL.revokeObjectURL(url);
-        })
+        const result = await poster.text();
+        if (result !== "inputs received") {
+            throw new Error("Server didn't confirm completion");
+        }
+
+        await createDirectoryAndFetchFile();
+
+
+        } catch (error) {
+            setTimeout (() => {
+                console.error("Error: ", error);
+                currQuestion.textContent = `Uh oh! We ran into an error: ${error.message}.`;
+                nextBtn.textContent = "Try again?";
+                nextBtn.disabled = false;
+                nextBtn.addEventListener("click", postResponse, { once: true });
+
+            }, 500);
+        }
+
+    }
+
+    async function createDirectoryAndFetchFile() {
+        const getter = await fetch('/complete');
+        if (!getter.ok) {
+            throw new Error("Failed to generate file");
+        }
+
+        const file = await getter.blob();
+        const fileUrl = URL.createObjectURL(file);
+
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = "Scenario.zip";
+        document.body.appendChild(link);
+        link.click();
+
+        setTimeout(() => {
+            document.body.removeChild(link);
+            URL.revokeObjectURL(fileUrl);
+            currQuestion.textContent = "Now Downloading File... Good Luck!"
+            
+            nextBtn.textContent = "Restart";
+            nextBtn.disabled = false;
+            nextBtn.addEventListener("click", () =>{responses = []; questionIndex = 0; window.location.href = "/" + "?reset=" + Date.now()}, { once: true });
+
+        }, 100);
     }
 });
