@@ -6,13 +6,12 @@ c. base64 encoded password string
 e. Diff command
 d. Steganography (USE PYTHON LIBRARY)
 '''
-from flask import Flask, request, send_file #using flask for webserver
+from flask import Flask, request, send_file, send_from_directory #using flask for webserver
 from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.enum.text import PP_ALIGN
 from pptx.dml.color import RGBColor
 from caesarcipher import CaesarCipher
-from PIL import Image
 import pyzipper, os, random, base64
 
 app = Flask(__name__) #creates flask application
@@ -156,11 +155,11 @@ def create_presentation(inputslist):
         "\n \n Police have narrowed down the search to one suspect: " + inputslist[1] + ". \n \nFollowing a warrant they have seized a USB drive with an encrypted file directory." \
         " They need your help in retrieving the lost data! \n \n" + inputslist[1] + "'s colleagues say that they followed bad cybersecurity practices and often used their own name as the password to their computer",
     #
-        inputslist[2],
-        inputslist[3],
-        inputslist[4],
-        inputslist[5],
-        inputslist[6],    
+        "Congratulations, you've made it to level 2! " + inputslist[2],
+        "Congratulations, you've made it to level 3! " + inputslist[3],
+        "Congratulations, you've made it to level 4! " + inputslist[4],
+        "Congratulations, you've made it to level 5! " + inputslist[5],
+        "Congratulations, you've made it to level 6! " + inputslist[6],    
     ]
 
     #Create title slide
@@ -194,7 +193,13 @@ def create_presentation(inputslist):
 def index():
     global inputs
     inputs = []
-    return app.send_static_file('index.html')  # Assuming your HTML file is in the static folder
+    return send_file('index.html')  # Assuming your HTML file is in the static folder
+
+@app.route('/<path:filename>')
+def root_files(filename):
+    if filename in ['index.js', 'styles.css', 'assets/githublogo.png']:  # Whitelist allowed files
+        return send_from_directory('.', filename)
+    return "Not found", 404
 
 @app.route('/submission', methods=['POST']) #user clicks submit on any of the questions
 def submission():

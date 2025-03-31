@@ -100,12 +100,11 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             document.body.removeChild(link);
             URL.revokeObjectURL(fileUrl);
-            currQuestion.textContent = "Now Downloading File... Good Luck!"
+            currQuestion.textContent = "Now Downloading File... Good Luck! Refresh to try again"
             
-            nextBtn.textContent = "Restart";
-            nextBtn.disabled = false;
-            nextBtn.addEventListener("click", () =>{responses = []; questionIndex = 0; window.location.href = "/" + "?reset=" + Date.now()}, { once: true });
-
+            document.getElementById('input').remove();
+            document.getElementById('btn').remove();
+            document.querySelector('#entry .blinkcaret').remove();
         }, 100);
     }
 });
