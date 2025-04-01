@@ -5,9 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const questions = [
         "First, what is your name?",
         "Now, type in another full name, first and last",
-        "Excellent choice! This time, enter in a noun",
+        "Excellent choice! This time, enter in a plural noun",
         "Enter in a single one digit number",
-        "Enter in a color",
+        "Now enter in a very large number",
+        "Enter in a verb ending in 'ing'",
         "Enter the name of a city",
         "Finally, enter in a food"
     ];

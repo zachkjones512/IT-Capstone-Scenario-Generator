@@ -17,7 +17,7 @@ import pyzipper, os, random, base64
 app = Flask(__name__) #creates flask application
 pres = Presentation()
 inputs = []
-presName = 'test.pptx'
+presName = 'Scenario.pptx'
 files = [5]
 directoryName = "Scenario.zip"
 randWords = [
@@ -44,7 +44,7 @@ def create_directory(inputslist):
     with pyzipper.AESZipFile("level4.zip", 'w', compression=pyzipper.ZIP_LZMA, encryption=pyzipper.WZ_AES) as zipf: #WIP: SETGANOGRAPHY
         zipf.setpassword(base64.b64decode(pw[2]).decode("utf-8").encode("utf-8"))
         with open("password4.txt", 'w') as file:
-            file.write("File=MonaLisa.jpg\nEncrypted=HiddenString")
+            file.write("EncryptionType=Steganography\nFile=MonaLisa.jpg\nEncryptionMethod=HiddenString")
         with open("assets/image.jpg", "rb") as orig_img:
             original = orig_img.read()
         
@@ -133,8 +133,9 @@ def create_custom_slide(file_num,body_text): #creates custom slide layout used f
         body_placeholder = body_frame.add_paragraph()
         body_placeholder.text = line
         body_placeholder.alignment = PP_ALIGN.CENTER 
-        body_placeholder.runs[0].font.size = Pt(20)
-        body_placeholder.runs[0].font.color.rgb = RGBColor(0, 143, 17)
+        if body_placeholder.runs:
+            body_placeholder.runs[0].font.size = Pt(20)
+            body_placeholder.runs[0].font.color.rgb = RGBColor(0, 143, 17)
 
     background = slide.background
     fill = background.fill
@@ -148,15 +149,12 @@ def create_presentation(inputslist):
         return "No inputs received. Please submit some data first.", 400 
 
     body_text_dict = [
-        "Security breach detected! Someone has stolen sensitive information from CyberTech Manufacturing in " + inputslist[5] + \
-        "\n \n Police have narrowed down the search to one suspect: " + inputslist[1] + ". \n \nFollowing a warrant they have seized a USB drive with an encrypted file directory." \
-        " They need your help in retrieving the lost data! \n \n" + inputslist[1] + "'s colleagues say that they followed bad cybersecurity practices and often used their own name as the password to their computer",
-    #
-        "Congratulations, you've made it to level 2! " + inputslist[2],
-        "Congratulations, you've made it to level 3! " + inputslist[3],
-        "Congratulations, you've made it to level 4! " + inputslist[4],
-        "Congratulations, you've made it to level 5! " + inputslist[5],
-        "Congratulations, you've made it to level 6! " + inputslist[6],    
+        "Security breach detected! Someone has stolen sensitive information from CyberTech Manufacturing in " + inputslist[6] +"\n \n Police have narrowed down the search to one suspect: " + inputslist[1] + ". \n \nFollowing a warrant they have seized a USB drive with an encrypted file directory." + " They need your help in retrieving the lost data! \n \n" + inputslist[1] + "'s colleagues say that they followed bad cybersecurity practices and often used their own name as the password to their computer",
+        "Congratulations, you've made it to level 2! " + inputslist[1] + " was known to be a fan of exactly two things:\n" + inputslist[2] + " and 'ciphers'\n\nThey often used a cipher to encrypt coded messages to their friends. Maybe there is a clue to the next password in this directory's text file?\n\nCommands you may use: 'cat', 'man', 'ls', 'cd'",
+        "Congratulations, you've made it to level 3! " + " Did you know that less than one percent of cyber incidents result in prosecution? We were lucky to catch " + inputslist[1] + " eating " + inputslist[7] + ".\n\nWhen we caught them, they had written on a napkin the phrase 'Level 3 - Base64'. Possibly another type of encryption?\n\nCommands you may use: 'cat', 'strings', 'base64', 'cd'",
+        "Congratulations, you've made it to level 4! " + " After first interrogating the suspect, they told investigators that it would be impossible for anyone to reveal their password. In fact, they had hidden their password in plain sight in a file that had " + inputslist[4] + " combinations of passwords\n\nMaybe you can find this diamond in the rough?\n\nCommands you may use: 'cat', 'base64', 'grep', 'uniq' ",
+        "Congratulations, you've made it to level 5! " + " Investigators are just plain stumped on how to find the next password. In these instances, it may be time to employ a method called 'social engineering' to determine the password, or predicting the password based on someone's social life\n\nFor instance, we know that the suspect was known for doing two things " + inputslist[6] + " and painting. Maybe we can find a clue from that?\n\nCommands you may use: 'cat', 'strings', 'grep'",
+        "Congratulations, you've made it to the end! With your help CyberTech Manufacturing was able to retrieve their data. Make sure to collect your certificate in this directory!" 
     ]
 
     #Create title slide
@@ -164,21 +162,22 @@ def create_presentation(inputslist):
                                  "For this cybersecurity scenario you will be taken through an investigation into the file directory that you downloaded with this PowerPoint. You are tasked with navigating each level by finding the subsequent directory's password." \
     "\n \n \nThere are a couple requirements before you begin. First, you need a file explorer capable of opening password-protected directories. " \
     "We recommend the free and open source 7-zip! \n \nThe second requirement is a linux terminal, "\
-    "macOS machines contain this already, while Windows machines will need to use a virtual machine or Windows Subsystem for Linux (WSL)\n \nWhen you are ready to begin, go to the next slide!")
+    "macOS machines contain this already, while Windows machines will need to use a virtual machine or Windows Subsystem for Linux (WSL). Use the terminal's built-in manual to see documentation for any unknown commands (i.e. man uniq).\n \nWhen you are ready to begin, go to the next slide!")
     print("Created presentation")
     #Title slide created
 
     for i in range(1,7):
         slide = create_custom_slide("Level " + str(i), body_text_dict[i-1])
         
-        hint_shape = slide.shapes.add_textbox(Inches(.1), Inches(6.5), Inches(4), Inches(.5))
-        hint_frame = hint_shape.text_frame
-        hint_text = hint_frame.add_paragraph()
-        hint_text.text = "Having trouble? Open the file hint.txt in this directory level!"
+        if i != 6:
+            hint_shape = slide.shapes.add_textbox(Inches(.1), Inches(6.5), Inches(4), Inches(.5))
+            hint_frame = hint_shape.text_frame
+            hint_text = hint_frame.add_paragraph()
+            hint_text.text = "Having trouble? Make sure to check the man pages for the commands listed!"
 
-        hint_text.alignment = PP_ALIGN.LEFT #aligns file directory height to top left
-        hint_text.runs[0].font.size = Pt(12)
-        hint_text.runs[0].font.color.rgb = RGBColor(255,0,0)
+            hint_text.alignment = PP_ALIGN.LEFT #aligns file directory height to top left
+            hint_text.runs[0].font.size = Pt(12)
+            hint_text.runs[0].font.color.rgb = RGBColor(255,0,0)
 
     try:
         pres.save(presName)
@@ -203,6 +202,7 @@ def submission():
     global inputs
     usrStr = request.get_json() #submission button sends post request with answers json file
     inputs = usrStr.get('responses', [])
+    print(len(inputs))
     create_presentation(inputs)
     create_directory(inputs)
     
