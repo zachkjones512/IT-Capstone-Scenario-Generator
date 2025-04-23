@@ -3,14 +3,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     const questions = [
-        "First, what is your name?",
-        "Now, type in another full name, first and last",
-        "Excellent choice! This time, enter in a plural noun",
-        "Enter in a single one digit number",
-        "Now enter in a very large number",
-        "Enter in a verb ending in 'ing'",
-        "Enter the name of a city",
-        "Finally, enter in a food"
+  /*0*/      "First, what is your name?",
+  /*1*/      "Now, type in another full name, first and last",
+  /*2*/      "Excellent choice! This time, enter in a plural noun",
+  /*3*/      "Enter in a single one digit number",
+  /*4*/      "Now enter in a very large number",
+  /*5*/      "Enter in a verb ending in 'ing'",
+  /*6*/      "Enter the name of a city",
+  /*7*/      "Finally, enter in a food"
     ];
 
     let responses = []; 
