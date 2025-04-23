@@ -32,8 +32,6 @@ randWords = [
 def create_directory(inputslist):
     print("Creating directory...")
     pw = random.sample(randWords, 4)
-    for pwd in pw:
-        print(base64.b64decode(pwd).decode("utf-8"))
 
     with pyzipper.AESZipFile("level5.zip", 'w', compression=pyzipper.ZIP_LZMA, encryption=pyzipper.WZ_AES) as zipf: #FINISH
         zipf.setpassword(base64.b64decode(pw[3]).decode("utf-8").encode("utf-8"))
